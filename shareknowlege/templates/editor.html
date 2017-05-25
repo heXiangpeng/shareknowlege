@@ -1,0 +1,112 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    {% load staticfiles %}
+    <meta charset="UTF-8">
+    <title>上传知识</title>
+    <script src="{% static "amazeui/assets/js/jquery-1.11.2.min.js" %}"></script>
+    <!-- Include Editor style. -->
+<link rel="stylesheet" href="{% static "amazeui/css/quill.snow.css" %}" />
+    <style type="text/css">
+        #editor{
+            width: 100%;
+            height: 300pt;
+            margin: 0 auto;
+        }
+
+        #note_title{
+            height: 50px;
+            width: 100%;
+            font-size:30px;
+            box-shadow: none;
+            border: none;
+            color: #cccccc;
+
+        }
+    </style>
+
+</head>
+<body>
+
+<input value="无标题文章" type="text" name="note_name" id="note_title">
+
+<div id="toolbar">
+    <button class="ql-bold">Bold</button>
+     <button class="ql-italic">Italic</button>
+    <span class="ql-formats">
+<select class="ql-header">
+<option value="1">Heading</option>
+<option value="2">Subheading</option>
+<option selected>Normal</option>
+</select>
+
+</span>
+
+<span class="ql-formats">
+<button class="ql-list" value="ordered"></button>
+<button class="ql-list" value="bullet"></button>
+<select class="ql-align">
+<option selected></option>
+<option value="center"></option>
+<option value="right"></option>
+<option value="justify"></option>
+</select>
+</span>
+<span class="ql-formats">
+<button class="ql-link"></button>
+<button class="ql-image"></button>
+<button class="ql-video"></button>
+</span>
+<span class="ql-formats">
+<button class="ql-formula"></button>
+<button class="ql-code-block"></button>
+</span>
+
+</div>
+
+<div id="editor"></div>
+
+
+<input type="button" id="publish" value="发布" >
+
+<script src="{% static "amazeui/js/quill.js" %}"></script>
+
+
+
+ <script>
+  var editor = new Quill('#editor',{
+      modules:{toolbar:'#toolbar'},
+      theme:'snow'
+  });
+
+  $('#publish').click(function (){
+      var length = editor.getLength();
+
+
+      var titile = $('#note_title').val();
+      //alert(titile);
+
+     var data =  editor.getText(0,length);
+     var te = $('.ql-editor').html();
+     var text = $('.ql-editor').text();
+
+      $.ajax({
+          type:"POST",
+          url:"/addtext",
+          data:"text="+te+"&title="+titile+"&smalltext="+text,
+          success:function (msg) {
+
+              if(msg=="succsess"){
+                   window.location.href="/index";
+              }else{
+                   alert("发布失败")
+              }
+
+          }
+      });
+
+  });
+
+</script>
+</body>
+</html>

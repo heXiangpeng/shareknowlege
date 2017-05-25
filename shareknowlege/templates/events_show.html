@@ -1,0 +1,269 @@
+{% load staticfiles %}
+<!doctype html>
+<html class="no-js">
+<head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="keywords" content="" />
+    <meta name="description" content="" />
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>知识共享系统</title>
+
+    <!--360 browser -->
+    <meta name="renderer" content="webkit">
+    <meta name="author" content="wos">
+    <!-- Android -->
+    <meta name="mobile-web-app-capable" content="yes">
+    <link rel="icon" sizes="192x192" href="../static/images/i/app.png">
+    <!--Safari on iOS -->
+    <meta name="apple-mobile-web-app-capable" content="yes">
+    <meta name="apple-mobile-web-app-status-bar-style" content="black">
+    <meta name="apple-mobile-web-app-title" content="Amaze UI"/>
+    <link rel="apple-touch-icon-precomposed" href="../static/images/i/app.png">
+    <!--Win8 or 10 -->
+    <meta name="msapplication-TileImage" content="images/i/app.png">
+    <meta name="msapplication-TileColor" content="#e1652f">
+
+    <link rel="icon" type="image/png" href="../static/images/i/favicon.png">
+    <link rel="stylesheet" href="{% static "amazeui/assets/css/amazi_min.css" %}">
+    <link rel="stylesheet" href="{% static "amazeui/assets/css/amazeui.css" %}">
+    <link rel="stylesheet" href="{% static "amazeui/assets/css/public.css"  %}" >
+        <link rel="stylesheet" href="{% static "amazeui/css/pl.css"  %}" >
+
+    <!--[if (gte IE 9)|!(IE)]><!-->
+    <script src="{% static "amazeui/assets/js/jquery.min.js" %}"></script>
+    <!--<![endif]-->
+    <!--[if lte IE 8 ]>
+    <script src="http://libs.baidu.com/jquery/1.11.3/jquery.min.js"></script>
+    <script src="http://cdn.staticfile.org/modernizr/2.8.3/modernizr.js"></script>
+    <script src="{% static "amazeui/assets/js/amazeui.ie8polyfill.min.js" %}"></script>
+    <![endif]-->
+    <script src="{% static "amazeui/assets/js/amazeui.min.js" %}"></script>
+    <script src="{% static "amazeui/js/public.js" %}"></script>
+
+
+    <style type="text/css">
+        li{
+            list-style: none;
+            list-style-type: none;
+            float: right;
+            margin-left: 20px;
+        }
+
+        #usre_type{
+            float: right;
+        }
+
+        #btn{
+            background: #ffffff;
+            border: none;
+            color: #1a1a1a;
+            border-radius: 5px;
+
+        }
+        #write{
+            border-radius: 4px;
+            background: #ea6f5a;
+            color: #ffffff;
+            font-size: 15px;
+        }
+
+        .wos-header{
+            background: #ffffff;
+        }
+
+        .am-topbar-brand{
+            font-size: 20px;
+        }
+
+        .am-dropdown-toggle{
+           border-radius: 4px;
+
+            background: #ea6f5a;
+            color: #ffffff;
+            font-size: 15px;
+        }
+        .ds-comment-body{
+            border: 1px solid #ddd;
+            padding: 0 10px 10px !important;
+            border-radius: 2px;
+            margin-top: 10px;
+        }
+        .ds-comment-header{
+            background-color: #f8f8f8;
+            padding: 10px;
+            margin-left: -10px;
+            margin-right: -10px;
+            border-bottom: 1px solid #eee;
+            font-weight: 500;
+            margin-bottom: 10px;
+            font-size: 14px;
+        }
+    </style>
+
+</head>
+<body>
+
+<header class="am-topbar am-topbar-fixed-top wos-header">
+    <div class="am-container">
+        <h1 class="am-topbar-brand">
+            知识共享系统
+        </h1>
+
+        <button class="am-topbar-btn am-topbar-toggle am-btn am-btn-sm am-btn-warning am-show-sm-only"
+                data-am-collapse="{target: '#collapse-head'}">
+            <span class="am-sr-only">导航切换</span>
+            <span class="am-icon-bars"></span>
+        </button>
+
+        <div class="am-collapse am-topbar-collapse" id="collapse-head">
+
+
+            <div class="am-topbar-right" id="usre_type">
+                {% if username == '' %}
+
+                     <li><a class="am-btn am-btn-default am-topbar-btn am-btn-sm" id="btn" href="register"><span class="am-icon-pencil"></span>注册</a></li>
+                     <li><a class="am-btn am-btn-default am-topbar-btn am-btn-sm"  id="btn" href="login"><span class="am-icon-pencil"></span>登陆</a></li>
+                {% else %}
+                    <ul class="am-nav am-nav-pills">
+                      <li><a class="am-btn am-btn-default am-topbar-btn am-btn-sm"  id="write" href="editor"><span class="am-icon-pencil"></span> 写文章</a></li>
+                      <li class="am-dropdown" data-am-dropdown>
+                      <a class="am-dropdown-toggle" data-am-dropdown-toggle >
+                        {{ username }}
+                      </a>
+                     <ul class="am-dropdown-content">
+
+                       <li><a href="#">退出</a></li>
+                      </ul>
+                    </li>
+                    </ul>
+                {%  endif %}
+
+            </div>
+        </div>
+    </div>
+</header>
+
+
+
+<!--banner-->
+<div class="banner">
+
+</div>
+
+<div class="am-g am-container padding-none">
+    <div class="am-u-sm-12 am-u-md-12 am-u-lg-8 ">
+        <div data-am-widget="titlebar" class="am-titlebar am-titlebar-default" >
+            <h2 class="am-titlebar-title ">
+                {{ arcticle.title }}
+            </h2>
+        </div>
+        <div class="newsshow">
+            {% autoescape off %}
+                    {{ arcticle.content }}
+            {% endautoescape %}
+
+
+
+        </div>
+
+
+    <div>
+        本文作者：{{ arcticle.user.realname }}
+
+    </div>
+
+
+ <div data-am-widget="titlebar" class="am-titlebar am-titlebar-default" >
+            <h2 class="am-titlebar-title ">
+                评论
+            </h2>
+ </div>
+
+
+<div class="am-form">
+    <fieldset>
+       <div class="am-form-group">
+         <textarea class="" rows="5" id="doc-ta-1" placeholder="添加评论"></textarea>
+       </div>
+        <p><button type="submit" class="am-btn am-btn-default">提交</button></p>
+    </fieldset>
+</div>
+ {% for arc in comment %}
+
+<div class="ds-comment-body">
+    <div class="ds-comment-header">
+        <a class="ds-user-name ds-highlight" data-qqt-account=""  rel="nofollow" target="_blank" d>{{ arc.user.realname }}</a>
+    </div>
+    <p>{{ arc.commnenttext  }}</p>
+    <div class="ds-comment-footer ds-comment-actions">
+        <span class="ds-time" datetime="2017-03-16T17:48:40+08:00" title=""></span><a class="ds-post-reply" href="javascript:void(0);">
+        </a>
+    </div>
+</div>
+
+ {% endfor %}
+
+
+
+
+  </div>
+
+</div>
+
+<div data-am-widget="gotop" class="am-gotop am-gotop-fixed" >
+    <a href="#top" title="回到顶部">
+        <span class="am-gotop-title">回到顶部</span>
+        <i class="am-gotop-icon am-icon-chevron-up"></i>
+    </a>
+</div>
+
+
+<script>
+
+     $('.am-btn').click(function (){
+
+
+
+      var titile = $('#doc-ta-1').val();
+
+      //alert(titile);
+         if(titile==''){
+             alert("填写内容为空！");
+             return;
+         }
+
+
+
+      $.ajax({
+          type:"POST",
+          url:"/addcoment",
+          data:"comment="+titile,
+          success:function (msg) {
+
+              if(msg=="succsess"){
+                  $('#doc-ta-1').val('');
+                   location.reload();
+
+
+              }else{
+                   alert("发布失败")
+              }
+
+          }
+      });
+
+  });
+
+
+</script>
+
+
+
+<footer>
+    <div class="content">
+
+    </div>
+</footer>
+</body>
+</html>

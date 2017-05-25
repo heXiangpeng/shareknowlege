@@ -1,0 +1,188 @@
+{% load staticfiles %}
+<!doctype html>
+<html class="no-js">
+<head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="keywords" content="" />
+    <meta name="description" content="" />
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>后台管理</title>
+
+    <!--360 browser -->
+    <meta name="renderer" content="webkit">
+    <meta name="author" content="wos">
+    <!-- Android -->
+    <meta name="mobile-web-app-capable" content="yes">
+    <link rel="icon" sizes="192x192" href="../static/images/i/app.png">
+    <!--Safari on iOS -->
+    <meta name="apple-mobile-web-app-capable" content="yes">
+    <meta name="apple-mobile-web-app-status-bar-style" content="black">
+    <meta name="apple-mobile-web-app-title" content="Amaze UI"/>
+    <link rel="apple-touch-icon-precomposed" href="../static/images/i/app.png">
+    <!--Win8 or 10 -->
+    <meta name="msapplication-TileImage" content="images/i/app.png">
+    <meta name="msapplication-TileColor" content="#e1652f">
+
+    <link rel="icon" type="image/png" href="../static/images/i/favicon.png">
+    <link rel="stylesheet" href="{% static "amazeui/assets/css/amazeui.css" %}">
+    <link rel="stylesheet" href="{% static "amazeui/assets/css/public.css"  %}" >
+
+    <!--[if (gte IE 9)|!(IE)]><!-->
+    <script src="{% static "amazeui/assets/js/jquery.min.js" %}"></script>
+    <!--<![endif]-->
+    <!--[if lte IE 8 ]>
+    <script src="http://libs.baidu.com/jquery/1.11.3/jquery.min.js"></script>
+    <script src="http://cdn.staticfile.org/modernizr/2.8.3/modernizr.js"></script>
+    <script src="{% static "amazeui/assets/js/amazeui.ie8polyfill.min.js" %}"></script>
+    <![endif]-->
+    <script src="{% static "amazeui/assets/js/amazeui.min.js" %}"></script>
+
+
+
+    <style type="text/css">
+        li{
+            list-style: none;
+            list-style-type: none;
+            float: right;
+            margin-left: 20px;
+        }
+
+        #usre_type{
+            float: right;
+        }
+
+        #btn{
+            background: #ffffff;
+            border: none;
+            color: #1a1a1a;
+            border-radius: 5px;
+
+        }
+        #write{
+            border-radius: 4px;
+            background: #ea6f5a;
+            color: #ffffff;
+            font-size: 15px;
+        }
+
+        .wos-header{
+            background: #ffffff;
+        }
+
+        .am-topbar-brand{
+            font-size: 20px;
+        }
+
+        .am-dropdown-toggle{
+           border-radius: 4px;
+
+            background: #ea6f5a;
+            color: #ffffff;
+            font-size: 15px;
+        }
+    </style>
+
+</head>
+<body>
+
+<header class="am-topbar am-topbar-fixed-top wos-header">
+    <div class="am-container">
+        <h1 class="am-topbar-brand">
+            后台管理系统
+        </h1>
+
+        <button class="am-topbar-btn am-topbar-toggle am-btn am-btn-sm am-btn-warning am-show-sm-only"
+                data-am-collapse="{target: '#collapse-head'}">
+            <span class="am-sr-only">导航切换</span>
+            <span class="am-icon-bars"></span>
+        </button>
+
+        <div class="am-collapse am-topbar-collapse" id="collapse-head">
+
+
+            <div class="am-topbar-right" id="usre_type">
+                {% if username == '' %}
+
+                     <li><a class="am-btn am-btn-default am-topbar-btn am-btn-sm" id="btn" href="register"><span class="am-icon-pencil"></span>注册</a></li>
+                     <li><a class="am-btn am-btn-default am-topbar-btn am-btn-sm"  id="btn" href="login"><span class="am-icon-pencil"></span>登陆</a></li>
+                {% else %}
+                    <ul class="am-nav am-nav-pills">
+                      <li><a class="am-btn am-btn-default am-topbar-btn am-btn-sm"  id="write" href="editor"><span class="am-icon-pencil"></span> 写文章</a></li>
+                      <li class="am-dropdown" data-am-dropdown>
+                      <a class="am-dropdown-toggle" data-am-dropdown-toggle >
+                        {{ username }}
+                      </a>
+                     <ul class="am-dropdown-content">
+
+                       <li><a href="/logout">退出</a></li>
+                      </ul>
+                    </li>
+                    </ul>
+                {%  endif %}
+
+            </div>
+        </div>
+    </div>
+</header>
+
+
+
+ <div class="am-tabs" data-am-tabs>
+  <ul class="am-tabs-nav am-nav am-nav-tabs">
+    <li class="am-active"><a href="#tab1">文章管理</a></li>
+    <li><a href="#tab2">用户管理</a></li>
+
+  </ul>
+
+  <div class="am-tabs-bd">
+    <div class="am-tab-panel am-fade am-in am-active" id="tab1">
+
+         <div data-am-widget="list_news" class="am-list-news am-list-news-default news">
+            <div class="am-list-news-bd">
+                <ul class="am-list">
+
+                    {% for arc in arcticle %}
+
+                          <li class="am-g am-list-item-desced am-list-item-thumbed am-list-item-thumb-left" data-am-scrollspy="{animation:'fade'}">
+
+
+                        <div class=" am-u-sm-7 am-list-main">
+                            <h3 class="am-list-item-hd"><a href="/view?id={{ arc.articleid }}">{{ arc.title }}</a></h3>
+                            <div class="am-list-item-text">{{ arc.smallcontent }}</div>
+                              <a href="/delete?id={{ arc.articleid }}" class="am-close am-close-alt am-icon-times"></a>
+                        </div>
+
+
+                    </li>
+
+                    {% endfor %}
+
+                </ul>
+            </div>
+
+        </div>
+
+
+    </div>
+    <div class="am-tab-panel am-fade" id="tab2">
+          {% for arc in user %}
+
+
+                        <div class="  am-list-main">
+                            <h3 class="am-list-item-hd"><a href="">{{ arc.username }}</a></h3>
+                            <a href="/username?name={{ arc.userid }}" class="am-close am-close-alt am-icon-times"></a>
+                        </div>
+
+
+                    </li>
+
+          {% endfor %}
+
+    </div>
+
+  </div>
+</div>
+
+</body>
+</html>

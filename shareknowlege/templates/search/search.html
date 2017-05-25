@@ -1,0 +1,41 @@
+<div id="form">
+{% block content %}
+{% if query %}
+
+<!--news-->
+<div class=" am-container newatype">
+
+
+{#                 {% autoescape off %}#}
+{##}
+
+                         {% for result in page.object_list %}
+
+
+
+
+                          <div class="am-list-main" style="margin-top: 10px;text-align: center">
+                             <h3 class="am-list-item-hd"><a id="tittle" href="/view?id={{ result.object.articleid}}" style="color: #e1652f;width: 100%;text-align: center;">{{ result.object.title }}</a></h3>
+
+                          </div>
+
+
+
+
+                     {% empty %}
+                      <p style="color: #e1652f;width: 100%;text-align: center; margin-top: 5px" >没有查找到你的文章</p>
+                      {% endfor %}
+
+{#                  {% endautoescape %}#}
+{##}
+
+
+
+
+        {% else %}
+            {# Show some example queries to run, maybe query syntax, something else? #}
+        {% endif %}
+
+{% endblock %}
+ </div>
+

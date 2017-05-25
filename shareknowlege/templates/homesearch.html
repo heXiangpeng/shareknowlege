@@ -1,0 +1,144 @@
+{% load staticfiles %}
+<!DOCTYPE html>
+<html>
+<head lang="en">
+<meta charset="UTF-8">
+<title>知识搜索</title>
+
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="keywords" content="" />
+    <meta name="description" content="" />
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>知识查询</title>
+
+    <!--360 browser -->
+    <meta name="renderer" content="webkit">
+    <meta name="author" content="wos">
+    <!-- Android -->
+    <meta name="mobile-web-app-capable" content="yes">
+    <link rel="icon" sizes="192x192" href="../static/images/i/app.png">
+    <!--Safari on iOS -->
+    <meta name="apple-mobile-web-app-capable" content="yes">
+    <meta name="apple-mobile-web-app-status-bar-style" content="black">
+    <meta name="apple-mobile-web-app-title" content="Amaze UI"/>
+    <link rel="apple-touch-icon-precomposed" href="../static/images/i/app.png">
+    <!--Win8 or 10 -->
+    <meta name="msapplication-TileImage" content="images/i/app.png">
+    <meta name="msapplication-TileColor" content="#e1652f">
+
+    <link rel="icon" type="image/png" href="../static/images/i/favicon.png">
+    <link rel="stylesheet" href="{% static "amazeui/assets/css/amazeui.css" %}">
+    <link rel="stylesheet" href="{% static "amazeui/assets/css/public.css"  %}" >
+
+    <!--[if (gte IE 9)|!(IE)]><!-->
+    <script src="{% static "amazeui/assets/js/jquery.min.js" %}"></script>
+    <!--<![endif]-->
+    <!--[if lte IE 8 ]>
+  <script src="{% static "amazeui/assets/js/jquery-1.11.2.min.js" %}"></script>
+  <script src="{% static "amazeui/assets/js/modernizr-2.6.2.min.js" %}"></script>
+
+    <script src="{% static "amazeui/assets/js/amazeui.ie8polyfill.min.js" %}"></script>
+    <![endif]-->
+    <script src="{% static "amazeui/assets/js/amazeui.min.js" %}"></script>
+    <script src="{% static "amazeui/js/public.js" %}"></script>
+
+<style>
+	*{ margin:0; padding:0;}
+       .wos-header{
+            background: #ffffff;
+        }
+
+    #sercHead{
+        background: #f1f1f1;
+        border-radius: 5px;
+        border: none;
+        height: 30px;
+        width: 200px;
+        color: #0f1034;
+        font-size: 10px;
+    }
+
+</style>
+
+</head>
+<body>
+
+
+<header class="am-topbar am-topbar-fixed-top wos-header">
+    <div class="am-container">
+        <h1 class="am-topbar-brand">
+            知识查找
+        </h1>
+
+
+
+        <button class="am-topbar-btn am-topbar-toggle am-btn am-btn-sm am-btn-warning am-show-sm-only"
+                data-am-collapse="{target: '#collapse-head'}">
+            <span class="am-sr-only">导航切换</span>
+            <span class="am-icon-bars"></span>
+        </button>
+
+
+        <div class="am-collapse am-topbar-collapse" id="collapse-head">
+
+
+            <div class="am-topbar-right" id="usre_type">
+
+
+                <input type="text" id="sercHead" class="box_S" placeholder="搜索（回车）">
+            </div>
+        </div>
+    </div>
+</header>
+
+
+  <div data-am-widget="titlebar" class="am-titlebar am-titlebar-default" style="border-bottom: 0px; margin-bottom: -10px">
+            <h2 class="am-titlebar-title ">
+                查找到的文章
+            </h2>
+
+  </div>
+<!--news-->
+<div class="am-g am-container newatype">
+
+    <div class="am-list-main oh">
+        <div data-am-widget="list_news" class="am-list-news am-list-news-default news">
+            <div class="am-list-news-bd">
+
+            </div>
+
+        </div>
+
+    </div>
+</div>
+
+
+<script>
+
+
+        $("#sercHead").bind('keypress',function (event) {
+             if (event.keyCode == "13"){
+                 var text = $("#sercHead").val();
+                  $.ajax({
+          type:"GET",
+          url:"/search",
+          data:"q="+text,
+          success:function (html) {
+
+              $('.am-list-news-bd').replaceAll(html);
+
+
+          }
+      });
+
+
+             }
+        });
+
+
+</script>
+
+
+</body>
+</html>

@@ -1,0 +1,47 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    {% load staticfiles %}
+
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta http-equiv="X-UA-Compatible" content="ie=edge">
+  <title>登陆</title>
+  <link rel="stylesheet" href="{% static "amazeui/assets/css/amazeui.css" %}" />
+  <link rel="stylesheet" href="{% static "amazeui/assets/css/other.min.css" %}" />
+
+    <style type="text/css">
+        #regitser{
+            width: 100%;
+            text-align: center;
+            margin-top: 20px;
+        }
+    </style>
+</head>
+<body class="login-container">
+  <div class="login-box">
+    <div class="logo-img">
+      <h1>知识共享系统</h1>
+    </div>
+    <form action="" method="post" class="am-form" data-am-validator>
+        {% csrf_token %}
+      <div class="am-form-group">
+        <label for="doc-vld-name-2"><i class="am-icon-user"></i></label>
+        <input type="text" id="doc-vld-name-2" name="username" minlength="3" placeholder="输入用户名（至少 3 个字符）" required/>
+      </div>
+
+      <div class="am-form-group">
+        <label for="doc-vld-email-2"><i class="am-icon-key"></i></label>
+        <input type="password"  name="password" placeholder="输入密码" required/>
+      </div>
+      <button class="am-btn am-btn-secondary"  type="submit">登录</button>
+
+    </form>
+
+  </div>
+  <div id="regitser">
+      <a href="/register">注册</a>
+
+  </div>
+</body>
+</html>
